@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto Mono&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Ubuntu', 'Roboto Mono', sans-serif;
+  font-size: 12 !important;
+}
+
+.home, .works, .users, .new {
+  display: flex;
+  height: 90vh;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  font-size: larger;
+  overflow: auto;
+  overflow-x: hidden;
+}
