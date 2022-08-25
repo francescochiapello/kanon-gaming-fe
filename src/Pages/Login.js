@@ -32,9 +32,6 @@ export default class Login extends Component {
       swal('Error', 'Please insert credentials and then retry', 'error')
     } else {
       const data = await Api.signup(user, psw)
-
-      console.log(data)
-
       if (!data) {
         swal('Error', 'Could not register, please try again later', 'error')
       } else {

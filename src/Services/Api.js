@@ -78,9 +78,6 @@ Api.signup = async (username, password) => {
 Api.login = async (username, password) => {
   try {
     const res = await client.post('/api/v0/signin', { username, password })
-
-    console.log(res)
-
     if (res.ok) {
       const jwt = res.data.token
       Api.setJWT(jwt)

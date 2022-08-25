@@ -14,6 +14,10 @@ export default function Home () {
   const [country, setCountry] = useState([])
   const [data, setData] = useState([])
 
+  // slot machine data
+  const [coins, setCoins] = useState(20)
+  const [lastSpin, setLastSpin] = useState(0)
+
   const searchCountry = async () => {
     const someAreEmpty = country.filter(c => !c || c === '')
     if (!country || someAreEmpty.length > 0) {
@@ -72,6 +76,23 @@ export default function Home () {
     setData(filtered)
   }
 
+  const spin = async () => {
+    const result = await Api.get('/api/v0/slot')
+    if (result.ok) {
+      const coinRes = result.data.coins
+      if (coinRes === 0) {
+        setCoins(coins - 1)
+      } else {
+        setCoins(coins + coinRes)
+      }
+      setLastSpin(coinRes)
+    } 
+  }
+
+  const restart = () => {
+    setCoins(20)
+  }
+
   return (
     <div style={page}>
       <div style={exit}>
@@ -80,6 +101,16 @@ export default function Home () {
         </Link>
       </div>
       <div style={leftSide}>
+        <div style={column}>
+          <h4>Slot Machine</h4>
+          <h6>Coins remaining: {coins}</h6>
+          <hr />
+          <h6>Spin result: {lastSpin}</h6>
+          <div style={{ display: 'flex' }}>
+            <Button style={{ width: 80, fontSize: 12, margin: 'auto' }} size='lg' variant='danger' onClick={() => restart()}>Restart</Button>
+            <Button style={{ width: 80, fontSize: 12, margin: 'auto' }} size='lg' variant='success' onClick={() => spin()}>Spin</Button>
+          </div>
+        </div>
         <div style={column}>
           <h4>Filter</h4>
           <hr />
