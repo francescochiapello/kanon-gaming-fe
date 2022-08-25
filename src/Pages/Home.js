@@ -16,7 +16,7 @@ export default function Home () {
 
   // slot machine data
   const [coins, setCoins] = useState(20)
-  const [lastSpin, setLastSpin] = useState(0)
+  const [lastSpin, setLastSpin] = useState('')
 
   const searchCountry = async () => {
     const someAreEmpty = country.filter(c => !c || c === '')
@@ -80,12 +80,13 @@ export default function Home () {
     const result = await Api.get('/api/v0/slot')
     if (result.ok) {
       const coinRes = result.data.coins
+      const spin = result.data.spin
       if (coinRes === 0) {
         setCoins(coins - 1)
       } else {
         setCoins(coins + coinRes)
       }
-      setLastSpin(coinRes)
+      setLastSpin(`${coinRes} => ${spin}`)
     } 
   }
 
